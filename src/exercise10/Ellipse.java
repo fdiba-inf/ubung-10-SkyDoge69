@@ -14,20 +14,22 @@ public class Ellipse extends Figure {
         super(new Point(otherEllipse.startPoint), otherEllipse.side1, otherEllipse.side2);
     }
 
-
+    @Override
     public double calculatePerimeter() {
         return Math.PI * (3.0 * (side1 + side2) - Math.sqrt((3.0 * side1 + side2) * (side1 + 3.0 * side2)));
     }
 
+    @Override
     public double calculateArea() {
         return Math.PI * side1 * side2;
     }
 
+    @Override
     public String getType() {
         return (side1 == side2) ? "Circle" : "Ellipse";
     }
 
-
+    @Override
     public boolean equal(Figure figure) {
         boolean sameA = Utils.equals(side1, figure.side1);
         boolean sameB = Utils.equals(side2, figure.side2);
@@ -37,8 +39,12 @@ public class Ellipse extends Figure {
         return (sameA && sameB) || (sameAReversed && sameBReversed);
     }
 
+    @Override
     public boolean containsClick(Point click) {
-        // Check if click point is inside the rectangle
+        if ( ((click.getX() - startPoint.getX()) / Math.pow(side1, 2)) -
+            ((click.getY() - startPoint.getY()) / Math.pow(side2, 2)) <= 1) {
+            return true;
+        }
         return false;
     }
 }
